@@ -22,7 +22,7 @@ SECRET_KEY = 'your-secret-key-here'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['seller-form.herokuapp.com']
+ALLOWED_HOSTS = ['seller-form.herokuapp.com', '127.0.0.1:8000']
 
 # Application definition
 
