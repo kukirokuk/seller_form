@@ -14,8 +14,5 @@ DATABASES['default'].update(db_from_env)
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 MEDIA_URL = '/media/'
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-INSTALLED_APPS += 'whitenoise.runserver_nostatic'
-
-MIDDLEWARE += 'whitenoise.middleware.WhiteNoiseMiddleware'

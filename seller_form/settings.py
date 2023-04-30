@@ -22,7 +22,7 @@ SECRET_KEY = 'your-secret-key-here'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['seller-form.herokuapp.com', '127.0.0.1:8000']
+ALLOWED_HOSTS = ['seller-form.herokuapp.com', '127.0.0.1']
 
 # Application definition
 
@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'seller_survey',
+    # 'whitenoise.runserver_nostatic'
 ]
 
 MIDDLEWARE = [
@@ -44,6 +45,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # 'whitenoise.middleware.WhiteNoiseMiddleware'
 ]
 
 ROOT_URLCONF = 'seller_form.urls'
