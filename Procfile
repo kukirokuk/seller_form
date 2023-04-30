@@ -1,1 +1,1 @@
-web: gunicorn myproject.wsgi
+web: gunicorn seller_form.wsgi
