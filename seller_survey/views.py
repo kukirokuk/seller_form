@@ -19,7 +19,7 @@ def submit_answer(request):
         elif question.qtype == 'select':
             choice_id = request.POST['choice_id']
             choice = question.choices.filter(id=choice_id).first()
-            Answer.objects.create(question=question, choice=choice)
+            Answer.objects.create(question=question, text=choice)
         elif question.qtype == 'money':
             answer_money = request.POST['answer_money']
             Answer.objects.create(question=question, text=answer_money)
