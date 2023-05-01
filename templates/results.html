@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <h1 class="text-center mb-4">Survey Results</h1>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Survey ID</th>
+              <th>Store name</th>
+              <th>Balance left</th>
+              <th>Sell price</th>
+              <th>Network</th>
+              <th>Address</th>
+              <th>Email</th>
+
+            </tr>
+          </thead>
+          <tbody>
+            {% for survey_result in survey_results %}
+              <tr>
+                <td>{{ survey_result.0 }}</td>
+                <td>{{ survey_result.1 }}</td>
+                <td>{{ survey_result.2 }}</td>
+                <td>{{ survey_result.3 }}</td>
+                <td>{{ survey_result.4 }}</td>
+                <td>{{ survey_result.5 }}</td>
+                <td>{{ survey_result.6 }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+{% endblock %}

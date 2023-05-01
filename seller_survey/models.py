@@ -1,4 +1,6 @@
 from django.db import models
+from django.utils import timezone
+
 
 class Question(models.Model):
     TEXT = 'text'
@@ -26,9 +28,20 @@ class Choice(models.Model):
     def __str__(self):
         return self.text
 
+
+class Survey(models.Model):
+    survey_id = models.CharField(max_length=100, unique=True)
+    created_at = models.DateTimeField(default=timezone.now)
+
+
+    def __str__(self):
+        return self.survey_id
+
 class Answer(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     text = models.CharField(max_length=200)
+    survey = models.ForeignKey(Survey, on_delete=models.CASCADE, related_name='answers')
+    created_at = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return self.text
