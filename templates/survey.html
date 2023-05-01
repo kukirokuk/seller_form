@@ -4,6 +4,7 @@
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-md-8">
+        <h1 class="text-center mb-4">Seller form</h1>
         <form hx-post="{% url 'submit_answer' %}" hx-target="#question-form" hx-swap="outerHTML">
           {% csrf_token %}
           <div id="question-form">

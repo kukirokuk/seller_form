@@ -33,18 +33,26 @@ def submit_answer(request):
         next_question = Question.objects.filter(id__gt=question_id).first()
     else:
         next_question = Question.objects.first()
+    
+            # Clear session if there are no more questions in the survey
+    if not next_question:
+        request.session.flush()
+
+        # Redirect to thank you page
+        return redirect('thank_you')
+
     context = {'question': next_question}
     return render(request, 'question.html', context)
 
 def results(request):
     # get all unique survey ids
-    survey_ids = Answer.objects.values_list('survey_id', flat=True).distinct()
+    survey_ids = Answer.objects.values_list('survey_id', 'survey__survey_id').distinct()
     # for each survey id, get all answers and create a dictionary for the survey
     surveys = []
     for survey_id in survey_ids:
         survey_lst = []
         answers = Answer.objects.filter(survey_id=survey_id)
-        survey_lst = [survey_id]
+        survey_lst.extend(survey_id)
         for answer in answers:
             survey_lst.append(answer.text)
         surveys.append(survey_lst)
@@ -55,3 +63,6 @@ def results(request):
 def clear_session(request):
     request.session.flush()
     return redirect('/')
+
+def thank_you(request):
+    return render(request, 'thank_you.html')
