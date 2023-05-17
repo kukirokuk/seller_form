@@ -9,14 +9,14 @@
     
     <form id="calculator-form" hx-post="{% url 'calculator' %}" hx-target="#result" hx-swap="value">
         {% csrf_token %}
-        <input type="text" name="num1" placeholder="Enter first number" required>
-        <select name="operation" required>
+        <input type="text" name="pos_1" placeholder="Enter first number" required>
+        <select name="pos_2" required>
             <option value="+">+</option>
             <option value="-">-</option>
             <option value="*">*</option>
             <option value="/">/</option>
         </select>
-        <input type="text" name="num2" placeholder="Enter second number" required>
+        <input type="text" name="pos_3" placeholder="Enter second number" required>
         =
         <input type="text" name="result" id="result" placeholder="Result">
 

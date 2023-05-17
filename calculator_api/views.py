@@ -13,11 +13,22 @@ class Calculator:
             "/": self.divide,
         }
 
-    def calculate(self, operation, num1, num2):
-        if operation in self.operations:
-            return self.operations[operation](num1, num2)
-        else:
-            raise ValueError("Invalid operation")
+    def calculate(self, operations):
+        numbers = [float(operations[0])]
+        result = numbers[0]
+
+        for i in range(1, len(operations), 2):
+            operation = operations[i]
+            number = float(operations[i + 1])
+
+            if operation in self.operations:
+                operation_fn = self.operations[operation]
+                result = operation_fn(result, number)
+                numbers.append(number)
+            else:
+                raise ValueError("Invalid operation")
+
+        return result
 
     def add(self, num1, num2):
         return num1 + num2
@@ -36,19 +47,25 @@ class Calculator:
 
 
 class CalculatorAPIView(APIView):
-    
     @csrf_exempt
     def post(self, request):
-        operation = request.data.get("operation")
-        num1 = float(request.data.get("num1"))
-        num2 = float(request.data.get("num2"))
+        try:
+            operations = [i for i in request.data.items() if i[0].split('_')[0] == 'pos' and int(i[0].split('_')[1])]
+        except:
+            return Response({"error": "Invalid input"}, status=400)
+        if len(operations) < 3:
+            print(111, list(request.data.items()))
+            return Response({"error": "At least two numbers and one operator must be in input"}, status=400)
         
+        sorted_operations = sorted(operations, key=lambda x: x[0])
+        operations = [i[1] for i in sorted_operations]
         calculator = Calculator()
         try:
-            result = calculator.calculate(operation, num1, num2)
+            result = calculator.calculate(operations)
             return Response({"result": result})
-        except ValueError as e:
+        except (ValueError, ZeroDivisionError) as e:
             return Response({"error": str(e)}, status=400)
+
 
 
 def calculator_view(request):
