@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Calculator</title>
+    <script src="https://unpkg.com/htmx.org/dist/htmx.js"></script>
+</head>
+<body>
+    <h1>Calculator</h1>
+    
+    <form id="calculator-form" hx-post="{% url 'calculator' %}" hx-target="#result" hx-swap="value">
+        {% csrf_token %}
+        <input type="text" name="num1" placeholder="Enter first number" required>
+        <select name="operation" required>
+            <option value="+">+</option>
+            <option value="-">-</option>
+            <option value="*">*</option>
+            <option value="/">/</option>
+        </select>
+        <input type="text" name="num2" placeholder="Enter second number" required>
+        =
+        <input type="text" name="result" id="result" placeholder="Result">
+
+        <button type="submit">Count</button>
+    </form>
+    
+    <script>
+        // Retrieve the result element
+        const resultElement = document.getElementById("result");
+        
+        // Listen for the htmx:afterSwap event on the result element
+        resultElement.addEventListener("htmx:afterSwap", function(event) {
+            // Parse the JSON response
+            const response = JSON.parse(event.detail.xhr.response);
+            
+            // Get the result value
+            const resultValue = response.result;
+            
+            // Update the value of the result input field with the result value
+            resultElement.value = resultValue;
+        });
+    </script>
+</body>
+</html>
+

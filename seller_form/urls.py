@@ -3,17 +3,12 @@ from django.urls import path
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
-from seller_survey.views import survey, submit_answer, results, clear_session, thank_you
-
+from calculator_api.views import CalculatorAPIView, calculator_view
 
 
 urlpatterns = [
-    path('', survey, name='survey'),
-    path('submit-answer/', submit_answer, name='submit_answer'),
-    path('results/', results, name='results'),
-    path('clear_session/', clear_session, name='clear_session'),
-    path('thank_you/', thank_you, name='thank_you'),
-    path('admin/', admin.site.urls),    
+    path('calculator/', CalculatorAPIView.as_view(), name='calculator'),
+    path('', calculator_view, name='calculator_view'),
 ]
 
 if settings.DEBUG:
