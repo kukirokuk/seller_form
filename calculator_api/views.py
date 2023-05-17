@@ -5,15 +5,17 @@ from django.shortcuts import render
 
 
 class Calculator:
+    def __init__(self):
+        self.operations = {
+            "+": self.add,
+            "-": self.subtract,
+            "*": self.multiply,
+            "/": self.divide,
+        }
+
     def calculate(self, operation, num1, num2):
-        if operation == "+":
-            return self.add(num1, num2)
-        elif operation == "-":
-            return self.subtract(num1, num2)
-        elif operation == "*":
-            return self.multiply(num1, num2)
-        elif operation == "/":
-            return self.divide(num1, num2)
+        if operation in self.operations:
+            return self.operations[operation](num1, num2)
         else:
             raise ValueError("Invalid operation")
 
@@ -40,7 +42,7 @@ class CalculatorAPIView(APIView):
         operation = request.data.get("operation")
         num1 = float(request.data.get("num1"))
         num2 = float(request.data.get("num2"))
-
+        
         calculator = Calculator()
         try:
             result = calculator.calculate(operation, num1, num2)
