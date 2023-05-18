@@ -13,7 +13,6 @@ class CalculatorManager:
     def calculate(self, parameters):
         numbers = [float(parameters[0])]
         result = numbers[0]
-
         for i in range(1, len(parameters), 2):
             param = parameters[i]
             number = float(parameters[i + 1])
@@ -23,13 +22,12 @@ class CalculatorManager:
                 try:
                     result = operation_fn(result, number)
                     numbers.append(number)
-                    return Response({"result": result})
                 except (ValueError, ZeroDivisionError) as e:
                     return Response({"error": str(e)}, status=400)
             else:
                 raise Response({"error": "Invalid operation"}, status=400)
 
-        return result
+        return Response({"result": result})
 
     def add(self, num1, num2):
         return num1 + num2
