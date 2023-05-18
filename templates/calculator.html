@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <title>Calculator</title>
-    <script src="https://unpkg.com/htmx.org/dist/htmx.js"></script>
-</head>
-<body>
+
+{% extends 'base.html' %}
+
+{% block content %}
+
     <h1>Calculator</h1>
     
     <form id="calculator-form" hx-post="{% url 'calculator' %}" hx-target="#result" hx-swap="value">
@@ -39,6 +38,6 @@
             resultElement.value = resultValue;
         });
     </script>
-</body>
-</html>
+{% endblock %}
+
 
